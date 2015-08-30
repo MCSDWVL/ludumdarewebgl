@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Ludum Dare Unity Web GL Games</title>
+<script type="text/javascript">
+
+var ld, games, idx, targets, filters, filter, jam;
+var mosaic, scale;
+
+function objLength(obj) {
+	if(Object.keys) return Object.keys(obj).length;
+	var count = 0;
+	for (k in obj) if (obj.hasOwnProperty(k)) count++;
+	return count;
+}
+
+function loadJSON(path, callback, post) {   
+	var req = new XMLHttpRequest();
+	req.open('GET', path, true);
+	req.overrideMimeType("application/json");
+	req.onreadystatechange = function () {
+		if (req.readyState == 4 && req.status == "200")
+			callback(JSON.parse(req.responseText));
+	};
+	req.send(post || null);  
+}
+ld = 33;
+loadJSON(ld + "/games.json", function(data) {
+	games = {}; targets = {}; jams = 0;
+  var web_trivia = {web: 0, unity: 0, fool: 0, gl: 0};
+		for(var i in data) {
+			var game = data[i], uid = game[1];
+			games[uid] = game;
+			if(game[6]) jams++;
+			if(game[8] && !game[9]) filters.Web[uid] = 1;
+			if(game[8]) web_trivia.web++;
+			if(game[9]) web_trivia.unity++;
+			if(game[10]) web_trivia.fool++;
+      if(game[11]) web_trivia.gl++;
+			if(game[11]) {
+        document.getElementById("main").innerHTML += "<li><a href='http://ludumdare.com/compo/ludum-dare-33/?action=" + game[0] + "&uid='" + game[1] + ">" + game[3] + "</a></li>\n";
+      }
+		}
+		console.log("loaded " + i + " LD" + ld + " games, " + jams + " are jam");
+		console.log(web_trivia);	
+	});
+</script>
+</head>
+<body onload="init()">
+<div id="filters"></div>
+<div id="main">
+  
+</div>
+</body>
+</html>
