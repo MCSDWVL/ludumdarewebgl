@@ -34,14 +34,14 @@ function init() {
 		  for(var i in data) {
 			  var game = data[i], uid = game[1];
 			  games[uid] = game;
-			  if(game[6]) jams++;
+			  if(game[4]) jams++;
 
-			  if(game[8]) web_trivia.web++;
-			  if(game[9]) web_trivia.unity++;
-			  if(game[10]) web_trivia.fool++;
-        if(game[11]) web_trivia.gl++;
-			  if(game[11]) {
-          document.getElementById("main").innerHTML += "<li><a href='http://ludumdare.com/compo/ludum-dare-33/?action=" + game[0] + "&uid='" + game[1] + ">" + game[3] + "</a></li>\n";
+			  if(game[6]) web_trivia.web++;
+			  if(game[7]) web_trivia.unity++;
+			  if(game[8]) web_trivia.fool++;
+        if(game[9]) web_trivia.gl++;
+			  if(game[9]) {
+          document.getElementById("main").innerHTML += "<li><a href='http://ludumdare.com/compo/ludum-dare-33/?action=" + game[0] + "&uid='" + game[1] + ">" + game[2] + "</a></li>\n";
         }
 		  }
 		  console.log("loaded " + i + " LD" + ld + " games, " + jams + " are jam");
